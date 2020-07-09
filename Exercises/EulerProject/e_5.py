@@ -30,6 +30,47 @@ def smallest_d(k):
     return math.prod(prime_factors)
 
 
-print(smallest_d(100))
+print(smallest_d(30))
+
+# Primes approach
+# Every whole number can be factorized to prime numbers. For example, 45 -- > 5 * 3^2
+# Hence, if let N be the smallest divisible number of 1 to 20, N = 2^a * 3^b * 5^c * 7^d * 11^e
+# a, b, c, d will be the largest that creates a perfect square below 20. For example,  2 ^ 4 < 20 < 2 ^ 5; hence,
+# a = 4
+
+import math
+
+
+# generates primes in range limit
+
+
+def gen_prime(limit):
+    prime_list = [2]
+    for number in range(3, limit):
+        check = True
+        for divider in range(2, int(math.sqrt(number)) + 1):
+            if number % divider == 0:
+                check = False
+        if check:
+            prime_list.append(number)
+    return  prime_list
+
+
+
+
+def sol_2(k):
+    smallest = 1
+    prime_list = gen_prime(k)
+
+    for prime in prime_list:
+        power = math.floor(math.log(k, prime))
+        smallest *= prime ** power
+    return smallest
+
+
+
+
+
+
 
 
